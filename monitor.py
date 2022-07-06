@@ -32,15 +32,15 @@ FILEPATH = './'
 # powerwall name 
 PWIPNAME = "192.168.11.43"
 # powerwall password
-PWPASS = "ZRATY"
+PWPASS = "XXXXX"
 # email to notify of grid changes and succesfull completion of program operations
 # in this case the email used will cause a text message to be sent to the customer mobile phone
-MAILNOTIF = "5033301254@tmomail.net"
+MAILNOTIF = "xxxxxxxxx4@tmomail.net"
 # Tuya  credentials
 TUYAAPIREGION="us"
-TUYAAPIKEY="skpkummdbdv62dtfyqz7"
-TUYAAPISECRET="5c77027662ba40f5a35b07881d4a1560"
-TUYAAPIDEVICEID="27225844840d8e7aabae"
+TUYAAPIKEY="xxxxxxxxxxxx"
+TUYAAPISECRET="xxxxxxxxxxxxx"
+TUYAAPIDEVICEID="xxxxxxxxxxxx"
 
 # main variables
 # how often grid is checked in seconds

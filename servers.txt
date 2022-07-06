@@ -1,0 +1,2 @@
+L pvez10pc.localnet
+S safe.localnet
