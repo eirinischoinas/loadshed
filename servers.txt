@@ -1,2 +1,2 @@
-L pvez10pc.localnet
-S safe.localnet
+L linuxserver.localnet
+S solariserver.localnet

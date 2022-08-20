@@ -1,3 +1,3 @@
-eirini-pc admin XXXXX
-william-pc admin XXXXX
-tv admin XXXXX
+desktop1 admin XXXXX
+desktop2 admin XXXXX
+desktop3 admin XXXXX

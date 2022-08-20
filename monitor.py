@@ -30,17 +30,17 @@ import tinytuya
 FILEPATH = './'
 
 # powerwall name 
-PWIPNAME = "192.168.11.43"
+PWIPNAME = "XX.XX.XX.XX"
 # powerwall password
 PWPASS = "XXXXX"
 # email to notify of grid changes and succesfull completion of program operations
 # in this case the email used will cause a text message to be sent to the customer mobile phone
-MAILNOTIF = "xxxxxxxxx4@tmomail.net"
+MAILNOTIF = "XXXXXXXXXX@tmomail.net"
 # Tuya  credentials
 TUYAAPIREGION="us"
-TUYAAPIKEY="xxxxxxxxxxxx"
-TUYAAPISECRET="xxxxxxxxxxxxx"
-TUYAAPIDEVICEID="xxxxxxxxxxxx"
+TUYAAPIKEY="XXXXXXXXXXXXXXXXXXXX"
+TUYAAPISECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+TUYAAPIDEVICEID="XXXXXXXXXXXXXXXXXXXX"
 
 # main variables
 # how often grid is checked in seconds
@@ -233,8 +233,12 @@ def bringup():
 
 
 # grid status query function
-def grid_down(powerwall):
+def grid_down():
+        # connect with powerwall
+        powerwall=Powerwall(PWIPNAME)
+        powerwall.login(PWPASS)
         status = powerwall.get_grid_status()
+        time.sleep(polltime/10)
         meters = powerwall.get_meters()
         sitePower = meters.load.get_power()
         commandWindow.addstr(2,0,'powerwall charge (percentage): ' + format(powerwall.get_charge()) +'\n')
@@ -242,34 +246,33 @@ def grid_down(powerwall):
         monitorWindow.refresh()
         commandWindow.refresh()
         if (format(powerwall.get_grid_status()) == 'GridStatus.ISLANEDED'):
+                powerwall.close()
                 return True
         else:
+                powerwall.close()
                 return False
 
 # main monitoring loop
 def monitorloop():
         down = False
         while True:
-                # connect with powerwall
-                powerwall=Powerwall(PWIPNAME)
-                powerwall.login(PWPASS)
 
                 # loop while grid is up
-                while not(grid_down(powerwall)):
+                while not(grid_down()):
                         monitorWindow.addstr("up\n")
                         monitorWindow.refresh()
                         time.sleep(polltime)
                 # grid is shut down
                 else:
                         time.sleep(confirmtime)
-                        if grid_down(powerwall):
+                        if grid_down():
                                 shutdown()
                                 down = True
                                 monitorWindow.addstr("down\n")
                                 monitorWindow.refresh()
                 if down:
                         # loop while grid is down
-                        while grid_down(powerwall):
+                        while grid_down():
                                 monitorWindow.addstr("still down\n")
                                 monitorWindow.refresh()
                                 time.sleep(polltime)
@@ -279,12 +282,11 @@ def monitorloop():
                         # grid came back up
                         else:
                                 time.sleep(confirmtime)
-                                if not(grid_down(powerwall)):
+                                if not(grid_down()):
                                         bringup()
                                         down = False
                                         monitorWindow.addstr("came up\n")
                                         monitorWindow.refresh()
-                powerwall.close()
 
 # class to lanuch monitor thread
 class monitorThread (threading.Thread):
@@ -316,6 +318,23 @@ def menu():
                         shutdown()
                 else:
                         pass
+
+import threading, sys, traceback
+
+def dumpstacks(signal, frame):
+    id2name = dict([(th.ident, th.name) for th in threading.enumerate()])
+    code = []
+    for threadId, stack in sys._current_frames().items():
+        code.append("\n# Thread: %s(%d)" % (id2name.get(threadId,""), threadId))
+        for filename, lineno, name, line in traceback.extract_stack(stack):
+            code.append('File: "%s", line %d, in %s' % (filename, lineno, name))
+            if line:
+                code.append("  %s" % (line.strip()))
+    print("\n".join(code))
+
+import signal
+
+signal.signal(signal.SIGQUIT, dumpstacks)
 
 # main body
 if __name__ == '__main__':
