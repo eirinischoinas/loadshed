@@ -38,6 +38,26 @@ Execute the two following commands:
 sc config RemoteRegistry start= auto
 sc start RemoteRegistry
 
+The following need to be configured in monitor.py for the program to work in your installation 
+
+-powerwall name 
+PWIPNAME = "XX.XX.XX.XX"
+
+-powerwall password
+PWPASS = "XXXXX"
+
+-email to notify of grid changes and succesfull completion of program operations
+In this case the email used will cause a text message to be sent to a mobile phone. 
+tmomail.net is for T-Mobile customers. Find the equivalent email address if you are using a different cell provider).  
+MAILNOTIF = "XXXXXXXXXX@tmomail.net"
+
+-Tuya  credentials
+TUYAAPIREGION="us"
+TUYAAPIKEY="XXXXXXXXXXXXXXXXXXXX"
+TUYAAPISECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+TUYAAPIDEVICEID="XXXXXXXXXXXXXXXXXXXX"
+
+
 links to libraries used:
  - Tesla Powerwall https://github.com/jrester/tesla_powerwall.
  - Tuya Devices: https://github.com/jasonacox/tinytuya
