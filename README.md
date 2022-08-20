@@ -2,9 +2,9 @@
 
 This program is for houses that suffer consistent power outages and have a tesla powerwall installed. The powerwall holds a limited amount of power, especially during the winter when the panels produce less power and more outages occur. When the power goes out, some devices in the home are necessary to keep on while others are not. 
 
-If you want to discuss this program as well as other topics related to home resiliency join me at https://domusfortis.org
+If you want to discuss this program as well as other topics related to home resiliency join me at https://domusfortis.org. At the same webiste you can also find a demo of the program: https://domusfortis.net/index.php?r=content%2Fperma&id=121
 
-It uses python modules I found on Github to interface with a home's smart plugs and other devices (Tuya & Kasa Devices are currently supported), windows, solaris and Linux computers, and a tesla powerwall. The program will constantly run on a computer and check the powerwall for power outages, which if it detects will then run the load shedding function. All tuya and kasa devices will be shut down as well and the computers listed in a text file. When the prgogram detects that the powerwall has reconnected to the grid all the shut down devices will be brought back up. 
+It uses python modules I found on Github to interface with a home's smart plugs and other devices (Tuya & Kasa Devices are currently supported), windows, solaris and Linux computers, and a tesla powerwall. The program will constantly run on a computer and check the powerwall for power outages, which if it detects will then run the load shedding function. All tuya and kasa devices will be shut down as well and the computers listed in a text file. When the program detects that the powerwall has reconnected to the grid all the shut down devices will be brought back up. 
 
 Of the system libraries used in the program of particular note are the following:
  - os: used to execute shell commands such as shutdown remote desktops and servers
